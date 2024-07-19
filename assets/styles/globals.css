@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@160..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Readex Pro", sans-serif;
+  background-color: #f8fcff;
+}
+
+.mySwiper2 {
+  height: 558px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.mySwiper1 .swiper-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.mySwiper1 .swiper-slide {
+  margin-top: 10px;
+  width: 68px !important;
+  height: 68px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mySwiper1 .swiper-slide-thumb-active {
+  border: 3px solid #015ea8;
+}
+
+.mySwiper2 .swiper-button-prev {
+  background: rgba(255, 255, 255, 0.5);
+  height: 34px;
+  width: 34px;
+  border-radius: 10px;
+  color: #343434;
+  margin-left: 30px;
+}
+.mySwiper2 .swiper-button-prev:after {
+  font-size: 17px;
+}
+.mySwiper2 .swiper-button-next {
+  background: rgba(255, 255, 255, 0.5);
+  height: 34px;
+  width: 34px;
+  border-radius: 10px;
+  color: #343434;
+  margin-right: 30px;
+}
+.mySwiper2 .swiper-button-next:after {
+  font-size: 17px;
+}
+
+.mySwiper3 {
+  width: 100%;
+  height: 100%;
+}
+.mySwiper3 .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mySwiper3 .swiper-wrapper .swiper-slide {
+  display: block;
+  width: 288px !important;
+  object-fit: cover;
+}
+
+.mySwiper3 .swiper-button-prev {
+  background: rgba(255, 255, 255, 0.5);
+  height: 34px;
+  width: 34px;
+  border-radius: 10px;
+  color: #343434;
+  margin-left: 30px;
+  position: absolute;
+}
+.mySwiper3 .swiper-button-prev:after {
+  font-size: 17px;
+}
+.mySwiper3 .swiper-button-next {
+  background: rgba(255, 255, 255, 0.5);
+  height: 34px;
+  width: 34px;
+  border-radius: 10px;
+  color: #343434;
+  margin-right: 30px;
+  position: absolute;
+}
+.mySwiper3 .swiper-button-next:after {
+  font-size: 17px;
+}
