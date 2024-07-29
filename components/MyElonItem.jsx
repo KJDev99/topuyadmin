@@ -13,7 +13,7 @@ const MyElonItem = ({ top, image, turi, name, address, data, price }) => {
               Top
             </div>
           )}
-          <Image src={image} alt={image} className="w-full" />
+          <Image src={image} alt="image" className="w-full" />
 
           <div
             className={`absolute h-5 w-20 flex items-center justify-center text-white text-xs capitalize bottom-2 right-2 rounded-full ${

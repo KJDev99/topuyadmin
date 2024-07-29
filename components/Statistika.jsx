@@ -12,7 +12,7 @@ const Statistika = () => {
         <h2 className="text-qora h-[70px] text">Foydalanuvchilar soni:</h2>
         <div className="flex justify-between">
           <Image src={soni} alt="soni" />
-          <p className="text-2xl text-logoKok font-semibold">120</p>
+          <p className="text-2xl text-logoKok font-semibold">1220</p>
         </div>
       </div>
       <div className="flex flex-col p-4 rounded-[10px] bg-[#F8FCFF]">

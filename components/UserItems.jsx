@@ -10,7 +10,7 @@ const UserItems = ({ bg, num, text1, image, text2 }) => {
     >
       <div className="w-2/3 flex items-center h-full pl-[30px]">
         <p className=" text-qora text-lg font-medium bg-transparent ">{num}</p>
-        <Image src={image} alt={text1} className="ml-20 mr-10" />
+        <Image src={image} alt="text1" className="ml-20 mr-10" />
         <p className="  text-qora text-lg font-medium bg-transparent ">
           {text1}
         </p>

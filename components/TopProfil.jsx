@@ -5,7 +5,7 @@ const TopProfil = () => {
         <h2 className="text-qora text-2xl font-medium">Xoshimjon</h2>
         <img
           src="/images/person.png"
-          alt=""
+          alt="img"
           className="h-10 w-10 mr-[60px] ml-10"
         />
       </div>
