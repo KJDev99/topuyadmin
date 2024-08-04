@@ -1,7 +1,12 @@
 "use client";
+import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { CiLocationOn } from "react-icons/ci";
+const formatDate = (dateString) => {
+  const date = parseISO(dateString);
+  return format(date, "dd.MM.yyyy");
+};
 
 const MyElonItem = ({
   is_top,
@@ -13,9 +18,11 @@ const MyElonItem = ({
   created,
   price,
   currency,
+  id,
+  status,
 }) => {
   return (
-    <Link href="/detail">
+    <Link href={`/${id}&${title}&${status}`}>
       <div className="flex bg-white rounded-[20px] overflow-hidden shadow-lg relative ">
         <div className="relative w-[268px] flex-shrink-0">
           {is_top && (
@@ -49,7 +56,7 @@ const MyElonItem = ({
             </p>
           </div>
           <div className="flex justify-between mb-[10px] items-center">
-            <p className="text-sm text-kulrang">{created}</p>
+            <p className="text-sm text-kulrang">{formatDate(created)}</p>
             <p className="text-xl text-qora font-semibold">
               {price} {currency}
             </p>

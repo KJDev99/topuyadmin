@@ -6,8 +6,12 @@ import TopProfil from "@/components/TopProfil";
 const ClientLayout = ({ children }) => {
   const pathname = usePathname();
 
+  // Regular expression to check if the pathname contains a number
+  const containsNumber = /\d+/;
+
+  // Determine if MenuLeft and TopProfil should be shown
   const showMenuAndProfile =
-    !pathname.startsWith("/login") && !pathname.startsWith("/detail");
+    !pathname.startsWith("/login") && !containsNumber.test(pathname);
 
   return (
     <div className="container">
@@ -18,7 +22,7 @@ const ClientLayout = ({ children }) => {
           </div>
         )}
         <div
-          className={` p-10 min-h-screen ${
+          className={`p-10 min-h-screen ${
             showMenuAndProfile ? "w-3/4 bg-white" : "w-full bg-transparent"
           }`}
         >

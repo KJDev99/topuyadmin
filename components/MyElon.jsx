@@ -19,6 +19,8 @@ const MyElon = () => {
 
   const token = Cookies.get("token"); // Tokenni cookies-dan olish
 
+  const [status, setStatus] = useState();
+
   const fetchAds = async (url) => {
     try {
       const response = await api.get(url, {
@@ -30,8 +32,8 @@ const MyElon = () => {
       setAds(results);
       setNextPageUrl(next);
       setPreviousPageUrl(previous);
+      console.log(response.data);
       setTotalPages(Math.ceil(count / itemsPerPage));
-      console.log(results);
     } catch (error) {
       console.error("Error fetching ads:", error);
     }
@@ -48,10 +50,13 @@ const MyElon = () => {
 
     if (selectedDuration === "aktiv") {
       url += `&status=ACTIVE`;
+      setStatus("ACTIVE");
     } else if (selectedDuration === "tasdiq") {
       url += `&status=WAITING`;
+      setStatus("WAITING");
     } else if (selectedDuration === "noaktiv") {
       url += `&status=REJECTED`;
+      setStatus("REJECTED");
     }
 
     fetchAds(url);
@@ -207,7 +212,7 @@ const MyElon = () => {
       </div>
       <div className="grid grid-cols-1 gap-5">
         {ads.length > 0 ? (
-          ads.map((ad) => <MyElonItem key={ad.id} {...ad} />)
+          ads.map((ad) => <MyElonItem key={ad.id} {...ad} status={status} />)
         ) : (
           <p className="text-center">No ads available.</p>
         )}
