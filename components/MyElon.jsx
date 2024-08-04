@@ -1,114 +1,71 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import MyElonItem from "./MyElonItem";
-import MainImg from "@/assets/images/asosiyrasm.png";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import api from "@/lib/api";
 
 const itemsPerPage = 20;
+
 const MyElon = () => {
   const [selectedDuration, setSelectedDuration] = useState("aktiv");
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [ads, setAds] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [nextPageUrl, setNextPageUrl] = useState(null);
+  const [previousPageUrl, setPreviousPageUrl] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
-  const allElonlar = [
-    {
-      top: true,
-      image: MainImg,
-      activ: true,
-      wait: false,
-      finish: false,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 1 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      image: MainImg,
-      activ: false,
-      wait: false,
-      finish: true,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 2 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      image: MainImg,
-      activ: false,
-      wait: true,
-      finish: false,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 3 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      top: true,
-      image: MainImg,
-      activ: true,
-      wait: true,
-      finish: false,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 4 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      image: MainImg,
-      activ: false,
-      wait: true,
-      finish: false,
-      turi: "ijara",
-      name: "Srochni sotiladi 5 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      top: true,
-      image: MainImg,
-      activ: true,
-      wait: false,
-      finish: false,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 6 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-    {
-      image: MainImg,
-      activ: true,
-      wait: false,
-      finish: false,
-      turi: "sotiladi",
-      name: "Srochni sotiladi 7 xonali Yakkasaroy Rovd orqasida",
-      address: "Toshkent, Yakksaroy",
-      data: "17.05.2024",
-      price: "1 250 000 000 so‘m ",
-    },
-  ];
+  const token = Cookies.get("token"); // Tokenni cookies-dan olish
 
-  const totalPages = Math.ceil(allElonlar.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentElonlar = allElonlar.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const fetchAds = async (url) => {
+    try {
+      const response = await api.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Tokenni Authorization sarlavhasida yuborish
+        },
+      });
+      const { results, next, previous, count } = response.data;
+      setAds(results);
+      setNextPageUrl(next);
+      setPreviousPageUrl(previous);
+      setTotalPages(Math.ceil(count / itemsPerPage));
+      console.log(results);
+    } catch (error) {
+      console.error("Error fetching ads:", error);
+    }
+  };
+
+  useEffect(() => {
+    let url = `/api/v1/root/ads/list?limit=${itemsPerPage}&offset=${
+      (currentPage - 1) * itemsPerPage
+    }`;
+
+    if (searchQuery) {
+      url += `&search=${encodeURIComponent(searchQuery)}`;
+    }
+
+    if (selectedDuration === "aktiv") {
+      url += `&status=ACTIVE`;
+    } else if (selectedDuration === "tasdiq") {
+      url += `&status=WAITING`;
+    } else if (selectedDuration === "noaktiv") {
+      url += `&status=REJECTED`;
+    }
+
+    fetchAds(url);
+  }, [currentPage, selectedDuration, searchQuery]);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (nextPageUrl) {
       setCurrentPage(currentPage + 1);
       window.scrollTo(0, 0);
     }
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
+    if (previousPageUrl) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
@@ -120,42 +77,70 @@ const MyElon = () => {
   };
 
   const renderPagination = () => {
-    if (allElonlar.length <= itemsPerPage) return null;
+    if (totalPages <= 1) return null;
 
     const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
+    let startPage = 1;
+    let endPage = 4;
+
+    if (currentPage > 2) {
+      startPage = currentPage - 1;
+      endPage = currentPage + 2;
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = endPage - 3;
+        if (startPage < 1) startPage = 1;
+      }
+    }
+
+    if (startPage > 1) {
+      pageNumbers.push(1);
+      if (startPage > 2) pageNumbers.push("...");
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) pageNumbers.push("...");
+      pageNumbers.push(totalPages);
     }
 
     return (
       <div className="flex justify-center mt-[50px] mb-5">
         <button
           onClick={handlePreviousPage}
-          disabled={currentPage === 1}
+          disabled={!previousPageUrl}
           className={`h-10 bg-white rounded-md w-10 mr-2 flex justify-center items-center ${
-            currentPage === 1 && "bg-kulrangOch"
+            !previousPageUrl && "bg-kulrangOch"
           }`}
         >
           <FaChevronLeft />
         </button>
-        {pageNumbers.map((pageNumber) => (
+        {pageNumbers.map((pageNumber, index) => (
           <button
-            key={pageNumber}
-            onClick={() => handlePageClick(pageNumber)}
-            className={`w-10 h-10 rounded-md  font-semibold mx-1 ${
-              currentPage === pageNumber
+            key={index}
+            onClick={() => {
+              if (pageNumber !== "...") {
+                handlePageClick(pageNumber);
+              }
+            }}
+            className={`w-10 h-10 rounded-md font-semibold mx-1 ${
+              pageNumber === currentPage
                 ? "bg-ochKok text-logoKok"
                 : "text-qora bg-white"
             }`}
+            disabled={pageNumber === "..."}
           >
             {pageNumber}
           </button>
         ))}
         <button
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
+          disabled={!nextPageUrl}
           className={`h-10 bg-white rounded-md w-10 ml-2 flex justify-center items-center ${
-            currentPage === totalPages && "bg-kulrangOch"
+            !nextPageUrl && "bg-kulrangOch"
           }`}
         >
           <FaChevronRight />
@@ -166,7 +151,14 @@ const MyElon = () => {
 
   const handleDurationClick = (duration) => {
     setSelectedDuration(duration);
+    setCurrentPage(1); // Change to the first page when duration changes
   };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1); // Reset to the first page when search changes
+  };
+
   return (
     <div className="bg-white px-5 pb-10 pt-[30px] rounded-[10px] flex flex-col">
       <div className="flex h-[50px] rounded-[10px] p-[5px] border border-kulrangOch bg-yozish mb-5">
@@ -174,6 +166,8 @@ const MyElon = () => {
           type="text"
           className="h-full border-none outline-none ml-[15px] w-full bg-transparent"
           placeholder="E'lon nomi bo'yicha qidirish"
+          value={searchQuery} // Set the input value to the search query state
+          onChange={handleSearchChange} // Update the search query on input change
         />
         <button className="ml-2 h-full text-lg font-medium border-none bg-logoKok text-white rounded-[10px] !w-[146px]">
           Qidirish
@@ -212,17 +206,11 @@ const MyElon = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-5">
-        {currentElonlar.map((elon, index) => {
-          if (selectedDuration === "aktiv") {
-            return elon.activ && <MyElonItem key={index} {...elon} />;
-          } else if (selectedDuration === "tasdiq") {
-            return elon.wait && <MyElonItem key={index} {...elon} />;
-          } else if (selectedDuration === "noaktiv") {
-            return elon.finish && <MyElonItem key={index} {...elon} />;
-          } else {
-            return "Elon Mavjud emas";
-          }
-        })}
+        {ads.length > 0 ? (
+          ads.map((ad) => <MyElonItem key={ad.id} {...ad} />)
+        ) : (
+          <p className="text-center">No ads available.</p>
+        )}
       </div>
       {renderPagination()}
     </div>

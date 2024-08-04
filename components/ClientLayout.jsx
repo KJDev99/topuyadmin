@@ -6,7 +6,8 @@ import TopProfil from "@/components/TopProfil";
 const ClientLayout = ({ children }) => {
   const pathname = usePathname();
 
-  const showMenuAndProfile = !pathname.startsWith("/detail");
+  const showMenuAndProfile =
+    !pathname.startsWith("/login") && !pathname.startsWith("/detail");
 
   return (
     <div className="container">
