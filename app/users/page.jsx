@@ -20,6 +20,7 @@ const UsersPage = () => {
         },
       });
       setUsers(response.data.results);
+      console.log(response.data);
     } catch (error) {
       setError("Failed to fetch users.");
       console.error("Error fetching users:", error);
@@ -29,6 +30,48 @@ const UsersPage = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  //   return (
+  //     <div className="flex justify-center mt-[50px] mb-5">
+  //       <button
+  //         onClick={handlePreviousPage}
+  //         disabled={!previousPageUrl}
+  //         className={`h-10 bg-white rounded-md w-10 mr-2 flex justify-center items-center ${
+  //           !previousPageUrl && "bg-kulrangOch"
+  //         }`}
+  //       >
+  //         <FaChevronLeft />
+  //       </button>
+  //       {pageNumbers.map((pageNumber, index) => (
+  //         <button
+  //           key={index}
+  //           onClick={() => {
+  //             if (pageNumber !== "...") {
+  //               handlePageClick(pageNumber);
+  //             }
+  //           }}
+  //           className={`w-10 h-10 rounded-md font-semibold mx-1 ${
+  //             pageNumber === currentPage
+  //               ? "bg-ochKok text-logoKok"
+  //               : "text-qora bg-white"
+  //           }`}
+  //           disabled={pageNumber === "..."}
+  //         >
+  //           {pageNumber}
+  //         </button>
+  //       ))}
+  //       <button
+  //         onClick={handleNextPage}
+  //         disabled={!nextPageUrl}
+  //         className={`h-10 bg-white rounded-md w-10 ml-2 flex justify-center items-center ${
+  //           !nextPageUrl && "bg-kulrangOch"
+  //         }`}
+  //       >
+  //         <FaChevronRight />
+  //       </button>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="flex flex-col">
@@ -49,7 +92,7 @@ const UsersPage = () => {
               bg={id % 2 == 1 ? true : false}
               image={user.photo || null} // Agar `photo` bo'lmasa, default rasm
               text1={user.full_name}
-              text2="Telefon raqami mavjud emas" // API natijasi telefon raqamni ko'rsatmayapti
+              text2={user.phone} // API natijasi telefon raqamni ko'rsatmayapti
             />
           ))
         ) : (
@@ -57,6 +100,7 @@ const UsersPage = () => {
         )}
       </div>
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+      {/* {renderPagination()} */}
     </div>
   );
 };

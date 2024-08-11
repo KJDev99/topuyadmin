@@ -8,8 +8,10 @@ const UserItems = ({ bg, num, text1, image, text2 }) => {
     >
       <div className="w-2/3 flex items-center h-full pl-[30px]">
         <p className=" text-qora text-lg font-medium bg-transparent ">{num}</p>
-        {image && <Image src={image} alt="text1" className="ml-20" />}
-        <p className="  text-qora text-lg font-medium bg-transparent ml-10">
+        {image && (
+          <img src={image} alt="text1" className="ml-5 h-[60%] rounded-full" />
+        )}
+        <p className="  text-qora text-lg font-medium bg-transparent ml-5">
           {text1}
         </p>
       </div>

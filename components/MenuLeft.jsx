@@ -12,10 +12,11 @@ import sozlamalar from "@/assets/images/sozlamalar.svg";
 import sozlamalaract from "@/assets/images/sozlamalaract.svg";
 import statistika from "@/assets/images/statistika.svg";
 import statistikaact from "@/assets/images/statistikaact.svg";
+import { usePathname } from "next/navigation";
 
 const MenuLeft = () => {
-  const [selectedDuration, setSelectedDuration] = useState("/");
-
+  const pathname = usePathname();
+  const [selectedDuration, setSelectedDuration] = useState(pathname);
   const handleDurationClick = (duration) => {
     setSelectedDuration(duration);
   };
@@ -42,6 +43,22 @@ const MenuLeft = () => {
               alt="logo"
             />
             <p className="ml-4">Statistika</p>
+          </div>
+        </Link>
+        <Link href={"/hamkorlar"}>
+          <div
+            className={`flex rounded-[10px] px-[30px] py-2 cursor-pointer text-xl ${
+              selectedDuration === "hamkorlar"
+                ? " bg-white text-logoKok shadow-lg"
+                : "bg-white text-qora"
+            }`}
+            onClick={() => handleDurationClick("hamkorlar")}
+          >
+            <Image
+              src={selectedDuration === "/hamkorlar" ? elonlaract : elonlar}
+              alt="logo"
+            />
+            <p className="ml-4">Hamkorlar</p>
           </div>
         </Link>
         <Link href={"/elonlar"}>
