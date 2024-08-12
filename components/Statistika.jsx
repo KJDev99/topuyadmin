@@ -78,11 +78,11 @@ const Statistika = () => {
   };
 
   const lineChartData = {
-    labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], // Oddiy raqamlar
+    labels: [0, 1], // Oddiy raqamlar
     datasets: [
       {
         label: "",
-        data: [0, 10, 20, 15, 25, 30, 45, 40, 35, 50, 60], // Oddiy raqamlar
+        data: [0, 1], // Oddiy raqamlar
         borderColor: "#4CAF50",
         backgroundColor: "rgba(76, 175, 80, 0.2)",
         fill: true,
