@@ -105,9 +105,13 @@ const page = () => {
           </div>
           <div className="flex flex-col">
             <p className="text-[#212121] mt-4">Yetkazilgan buyurtmalar:</p>
-            <p className="text-[#585858] font-[500] text-lg mt-2">0000 </p>
+            <p className="text-[#585858] font-[500] text-lg mt-2">
+              {userData?.users}{" "}
+            </p>
             <p className="text-[#212121] mt-4">Ish haqi:</p>
-            <p className="text-[#585858] font-[500] text-lg mt-2">0000</p>
+            <p className="text-[#585858] font-[500] text-lg mt-2">
+              {userData?.amount}
+            </p>
           </div>
           <div className="flex justify-end items-end">
             <button
