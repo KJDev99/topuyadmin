@@ -18,7 +18,7 @@ const HamkorPage = () => {
         },
       });
       setUsers(response.data.results);
-      console.log(response.data);
+      console.log(response.data.results);
     } catch (error) {
       setError("Failed to fetch users.");
       console.error("Error fetching users:", error);
@@ -52,7 +52,7 @@ const HamkorPage = () => {
         {users.length > 0 ? (
           users.map((user, id) => (
             <HamkorItems
-              key={user.id}
+              keyId={user.user.id}
               num={id + 1}
               bg={id % 2 == 1 ? true : false}
               text1={user.user.full_name}

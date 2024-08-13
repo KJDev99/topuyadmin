@@ -10,8 +10,10 @@ const ClientLayout = ({ children }) => {
   const containsNumber = /\d+/;
 
   // Determine if MenuLeft and TopProfil should be shown
-  const showMenuAndProfile =
+  let showMenuAndProfile =
     !pathname.startsWith("/login") && !containsNumber.test(pathname);
+
+  if (pathname.startsWith("/hamkorlar")) showMenuAndProfile = true;
 
   return (
     <div className="container">

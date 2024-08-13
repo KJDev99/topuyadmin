@@ -41,9 +41,9 @@ const Statistika = () => {
     rejected_ads: 0,
     lineChartData: {},
   });
+  const [lineData, setlineData] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [showCalendar, setShowCalendar] = useState(false);
 
   const fetchData = async (from = "", to = "") => {
     const token = Cookies.get("token");
@@ -60,6 +60,7 @@ const Statistika = () => {
         }
       );
       setData(response.data);
+      // setlineData(response.data.line - chart);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -71,6 +72,8 @@ const Statistika = () => {
   }, []);
 
   const handleDateChange = async () => {
+    console.log(data.lineChartData);
+
     if (fromDate && toDate) {
       await fetchData(fromDate, toDate);
       setShowCalendar(false);
@@ -78,11 +81,11 @@ const Statistika = () => {
   };
 
   const lineChartData = {
-    labels: [0, 1], // Oddiy raqamlar
+    labels: [0, 8], // Oddiy raqamlar
     datasets: [
       {
         label: "",
-        data: [0, 1], // Oddiy raqamlar
+        data: [0, 178667], // Oddiy raqamlar
         borderColor: "#4CAF50",
         backgroundColor: "rgba(76, 175, 80, 0.2)",
         fill: true,
@@ -92,6 +95,28 @@ const Statistika = () => {
 
   return (
     <div className="relative">
+      <div className="bg-[#F8FCFF] mb-[30px] flex items-center rounded-lg px-4">
+        <input
+          type="date"
+          value={fromDate}
+          onChange={(e) => setFromDate(e.target.value)}
+          className="outline-none mr-12 bg-transparent"
+        />
+        <input
+          type="date"
+          value={toDate}
+          onChange={(e) => setToDate(e.target.value)}
+          className="outline-none mr-12 bg-transparent"
+        />
+        <button onClick={handleDateChange} className="p-2 rounded">
+          <Image
+            src={CalendarIcon}
+            alt="Calendar Icon"
+            width={20}
+            height={20}
+          />
+        </button>
+      </div>
       <div className="grid grid-cols-5 gap-6">
         <div className="flex flex-col p-4 rounded-[10px] bg-[#F8FCFF]">
           <h2 className="text-qora h-[70px] text">Foydalanuvchilar soni:</h2>
@@ -138,35 +163,6 @@ const Statistika = () => {
         </div>
       </div>
       <div className="relative mt-6">
-        <div className="absolute right-0 top-0 cursor-pointer w-5">
-          <Image
-            src={CalendarIcon}
-            alt="Calendar Icon"
-            onClick={() => setShowCalendar(!showCalendar)}
-          />
-        </div>
-        {showCalendar && (
-          <div className="absolute right-5 top-14 bg-white p-4 border rounded-lg shadow-lg">
-            <input
-              type="date"
-              value={fromDate}
-              onChange={(e) => setFromDate(e.target.value)}
-              className="border p-2 mb-2"
-            />
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
-              className="border p-2 mb-2"
-            />
-            <button
-              onClick={handleDateChange}
-              className="bg-blue-500 text-white p-2 rounded"
-            >
-              Apply
-            </button>
-          </div>
-        )}
         <Line data={lineChartData} options={{ responsive: true }} />
       </div>
     </div>

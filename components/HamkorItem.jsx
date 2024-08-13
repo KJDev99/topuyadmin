@@ -1,6 +1,8 @@
+import Link from "next/link";
 import React from "react";
 
-const HamkorItems = ({ bg, num, text1, text2, users, amount }) => {
+const HamkorItems = ({ keyId, bg, num, text1, text2, users, amount }) => {
+  console.log(keyId, "key");
   return (
     <div
       className={`w-full h-[60px] flex items-center ${bg && "bg-background"}`}
@@ -22,9 +24,11 @@ const HamkorItems = ({ bg, num, text1, text2, users, amount }) => {
         {amount}
       </p>
       <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-transparent h-[60px] ">
-        <button className="flex items-center px-4 py-2 text-sm font-medium text-white bg-main border-0 rounded-md">
-          Ochish
-        </button>
+        <Link href={`/hamkorlar/${keyId}`}>
+          <button className="flex items-center px-4 py-2 text-sm font-medium text-white bg-main border-0 rounded-md">
+            Ochish
+          </button>
+        </Link>
       </div>
     </div>
   );
