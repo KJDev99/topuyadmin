@@ -18,6 +18,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Chart,
 } from "chart.js";
 import CalendarIcon from "@/assets/images/calendar.svg"; // Make sure to add this icon
 
@@ -39,9 +40,8 @@ const Statistika = () => {
     top_ads: 0,
     active_ads: 0,
     rejected_ads: 0,
-    lineChartData: {},
+    line_chart: {},
   });
-  const [lineData, setlineData] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
@@ -60,8 +60,6 @@ const Statistika = () => {
         }
       );
       setData(response.data);
-      // setlineData(response.data.line - chart);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -72,20 +70,31 @@ const Statistika = () => {
   }, []);
 
   const handleDateChange = async () => {
-    console.log(data.lineChartData);
-
     if (fromDate && toDate) {
       await fetchData(fromDate, toDate);
-      setShowCalendar(false);
     }
   };
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        border: false,
+      },
+      title: {
+        display: true,
+        text: "",
+      },
+    },
+  };
+
   const lineChartData = {
-    labels: [0, 8], // Oddiy raqamlar
+    labels: [0, ...Object.keys(data.line_chart)],
     datasets: [
       {
         label: "",
-        data: [0, 178667], // Oddiy raqamlar
+        data: [0, ...Object.values(data.line_chart)],
         borderColor: "#4CAF50",
         backgroundColor: "rgba(76, 175, 80, 0.2)",
         fill: true,
@@ -163,7 +172,7 @@ const Statistika = () => {
         </div>
       </div>
       <div className="relative mt-6">
-        <Line data={lineChartData} options={{ responsive: true }} />
+        <Line data={lineChartData} options={options} />
       </div>
     </div>
   );
