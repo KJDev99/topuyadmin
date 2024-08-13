@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ChekImage from "@/assets/images/chekyukla.svg";
 import Image from "next/image";
-import axios from "axios";
 import Cookies from "js-cookie";
+import api from "@/lib/api";
 
 const ModalChek = ({ isOpen, onClose, userId }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -34,7 +34,7 @@ const ModalChek = ({ isOpen, onClose, userId }) => {
       formData.append("chek", selectedFile);
       formData.append("user", userId);
 
-      const response = await axios.post(
+      const response = await api.post(
         "/api/v1/root/referral/transfer/money",
         formData,
         {
