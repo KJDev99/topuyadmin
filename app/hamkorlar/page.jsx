@@ -32,19 +32,19 @@ const HamkorPage = () => {
   return (
     <div className="flex flex-col">
       <div className="mt-[30px] w-full flex">
-        <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-ochKok h-[50px]">
+        <div className="w-2/6 flex justify-center items-center text-qora text-[16px] font-medium bg-ochKok h-[50px]">
           Ism familya
         </div>
-        <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-ochKok h-[50px]">
+        <div className="w-1/6 flex justify-center items-center text-qora text-[16px] font-medium bg-ochKok h-[50px]">
           Telefon raqami
         </div>
-        <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-ochKok h-[50px]">
-          Referallar soni
+        <div className="w-1/6 flex justify-center items-center text-qora text-[16px] font-medium bg-ochKok h-[50px]">
+          Referallar
         </div>
-        <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-ochKok h-[50px]">
+        <div className="w-1/6 flex justify-center items-center text-qora text-[16px] font-medium bg-ochKok h-[50px]">
           Ish haqi
         </div>
-        <div className="w-1/5 flex justify-center items-center text-qora text-lg font-medium bg-ochKok h-[50px]">
+        <div className="w-1/6 flex justify-center items-center text-qora text-[16px] font-medium bg-ochKok h-[50px]">
           Profil
         </div>
       </div>

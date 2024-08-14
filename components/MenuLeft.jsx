@@ -109,6 +109,22 @@ const MenuLeft = () => {
             <p className="ml-4">Sozlamalar</p>
           </div>
         </Link>
+        <Link href={"/banner"}>
+          <div
+            className={`flex rounded-[10px] px-[30px] py-2 cursor-pointer text-xl bg-white ${
+              selectedDuration === "/banner"
+                ? " bg-white text-logoKok shadow-lg"
+                : "bg-white text-qora"
+            }`}
+            onClick={() => handleDurationClick("/banner")}
+          >
+            <Image
+              src={selectedDuration === "/banner" ? statistikaact : statistika}
+              alt="logo"
+            />
+            <p className="ml-4">Bannerlar</p>
+          </div>
+        </Link>
       </div>
     </div>
   );

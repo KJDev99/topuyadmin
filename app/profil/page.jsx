@@ -7,6 +7,7 @@ import { FaAngleLeft } from "react-icons/fa6";
 import SarlavhaKiritishEdit from "@/components/SarlavhaKiritishEdit";
 import rasmYuklash from "@/assets/images/rasmyuklash.png";
 import Loader from "@/components/Loader";
+import Image from "next/image";
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
@@ -196,11 +197,20 @@ const ProfilePage = () => {
         </div>
         <div className="w-2/5 flex flex-col items-center max-md:w-full">
           <div className="relative w-[223px] h-[223px] max-md:h-[102px] max-md:w-[102px] rounded-full mt-10 overflow-hidden">
-            <img
-              className="w-full h-full object-cover"
-              src={image || rasmYuklash}
-              alt="user"
-            />
+            {image ? (
+              <img
+                className="w-full h-full object-cover"
+                src={image}
+                alt="user"
+              />
+            ) : (
+              <Image
+                className="w-full h-full object-cover"
+                src={rasmYuklash}
+                alt="user"
+              />
+            )}
+
             <input
               type="file"
               accept="image/*"

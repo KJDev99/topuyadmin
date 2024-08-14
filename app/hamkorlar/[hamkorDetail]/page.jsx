@@ -104,7 +104,7 @@ const page = () => {
             </p>
           </div>
           <div className="flex flex-col">
-            <p className="text-[#212121] mt-4">Yetkazilgan buyurtmalar:</p>
+            <p className="text-[#212121] mt-4">Referallar:</p>
             <p className="text-[#585858] font-[500] text-lg mt-2">
               {userData?.users}{" "}
             </p>

@@ -217,11 +217,15 @@ const DetailElon = () => {
             <p className="text-qora text-lg font-medium mt-[10px] mb-5">
               {adDetail.address}
             </p>
-            <YMaps>
-              <Map state={mapState} width="100%" height="200px">
-                <Placemark geometry={[adDetail.latitude, adDetail.longitude]} />
-              </Map>
-            </YMaps>
+            {adDetail.latitude && (
+              <YMaps>
+                <Map state={mapState} width="100%" height="200px">
+                  <Placemark
+                    geometry={[adDetail.latitude, adDetail.longitude]}
+                  />
+                </Map>
+              </YMaps>
+            )}
           </div>
         </div>
       </div>

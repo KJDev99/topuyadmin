@@ -23,7 +23,7 @@ export default function DetailPageImg({ imgs }) {
             <img
               src={img.file}
               alt={`Slide ${img.id}`}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
             />
           </SwiperSlide>
         ))}
@@ -35,7 +35,7 @@ export default function DetailPageImg({ imgs }) {
             <img
               src={img.file}
               alt={`Thumbnail ${img.id}`}
-              className="h-full"
+              className="h-full object-cover"
             />
           </SwiperSlide>
         ))}

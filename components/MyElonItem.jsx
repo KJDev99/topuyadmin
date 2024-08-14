@@ -45,7 +45,7 @@ const MyElonItem = ({
           </div>
         </div>
         <div className="py-5 px-5 flex flex-col flex-grow">
-          <h3 className="line-clamp-2 text-qora text-xl font-semibold flex-grow">
+          <h3 className="line-clamp-2 text-qora text-lg font-semibold flex-grow">
             {title}
           </h3>
           <div className="flex mt-2 mb-[10px]">
