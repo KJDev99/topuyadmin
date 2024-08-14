@@ -11,6 +11,8 @@ import { format, parseISO } from "date-fns";
 import Cookies from "js-cookie";
 import ModalStatus from "./ModalStatus";
 
+import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
+
 const formatDate = (dateString) => {
   const date = parseISO(dateString);
   return format(date, "dd.MM.yyyy");
@@ -98,6 +100,11 @@ const DetailElon = () => {
       text2: adDetail.have_broker_fee ? "Bor" : "Yo'q",
     },
   ];
+
+  const mapState = {
+    center: [adDetail.latitude, adDetail.longitude],
+    zoom: 12,
+  };
 
   return (
     <div className="container">
@@ -210,13 +217,11 @@ const DetailElon = () => {
             <p className="text-qora text-lg font-medium mt-[10px] mb-5">
               {adDetail.address}
             </p>
-            <iframe
-              src={`https://www.google.com/maps/embed/v1/place?q=${adDetail.latitude},${adDetail.longitude}&key=YOUR_API_KEY`}
-              width="full"
-              height="280"
-              loading="lazy"
-              className="rounded-[10px]"
-            ></iframe>
+            <YMaps>
+              <Map state={mapState} width="100%" height="200px">
+                <Placemark geometry={[adDetail.latitude, adDetail.longitude]} />
+              </Map>
+            </YMaps>
           </div>
         </div>
       </div>

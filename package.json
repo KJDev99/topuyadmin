@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pbe/react-yandex-maps": "^1.2.5",
     "axios": "^1.7.3",
     "chart.js": "^4.4.3",
     "date-fns": "^3.6.0",
