@@ -21,6 +21,8 @@ const MyElon = () => {
 
   const [status, setStatus] = useState();
 
+  const [countData, setCountData] = useState(null);
+
   const fetchAds = async (url) => {
     try {
       const response = await api.get(url, {
@@ -36,6 +38,19 @@ const MyElon = () => {
       setTotalPages(Math.ceil(count / itemsPerPage));
     } catch (error) {
       console.error("Error fetching ads:", error);
+    }
+  };
+  const fetchAdCounts = async () => {
+    try {
+      const response = await api.get("/api/v1/root/count/ads", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setCountData(response.data); // Store count data in state
+      console.log("Count Data:", response.data); // Log count data to console
+    } catch (error) {
+      console.error("Error fetching ad counts:", error);
     }
   };
 
@@ -60,6 +75,7 @@ const MyElon = () => {
     }
 
     fetchAds(url);
+    fetchAdCounts();
   }, [currentPage, selectedDuration, searchQuery]);
 
   const handleNextPage = () => {
@@ -86,7 +102,7 @@ const MyElon = () => {
 
     const pageNumbers = [];
     let startPage = 1;
-    let endPage = 4;
+    let endPage = 3;
 
     if (currentPage > 2) {
       startPage = currentPage - 1;
@@ -187,7 +203,7 @@ const MyElon = () => {
           }`}
           onClick={() => handleDurationClick("aktiv")}
         >
-          <p className="text-lg">Aktiv e’lonlar</p>
+          <p className="text-lg">Aktiv e’lonlar {countData?.active}</p>
         </div>
         <div
           className={`flex rounded-[10px] w-full text-center h-[44px] items-center justify-center cursor-pointer border text-xl font-medium ${
@@ -197,7 +213,7 @@ const MyElon = () => {
           }`}
           onClick={() => handleDurationClick("tasdiq")}
         >
-          <p className="text-lg">Kutilayotgan e'lonlar</p>
+          <p className="text-lg">Kutilayotgan e'lonlar {countData?.waiting}</p>
         </div>
         <div
           className={`flex rounded-[10px] w-full text-center h-[44px] items-center justify-center cursor-pointer border text-xl font-medium ${
@@ -207,7 +223,7 @@ const MyElon = () => {
           }`}
           onClick={() => handleDurationClick("noaktiv")}
         >
-          <p className="text-lg">Noaktiv e'lonlar</p>
+          <p className="text-lg">Noaktiv e'lonlar {countData?.rejected}</p>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-5">
