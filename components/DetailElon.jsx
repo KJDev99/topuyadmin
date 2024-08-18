@@ -208,10 +208,10 @@ const DetailElon = () => {
             <h2 className="mt-[30px] mb-5 text-qora font-normal">Manzil</h2>
             <div className="flex">
               <p className="border border-yozish rounded-[10px] bg-white py-[6px] px-5 text-qora text-lg font-medium mr-5">
-                {adDetail.region.name_uz}
+                {adDetail.region?.name_uz}
               </p>
               <p className="border border-yozish rounded-[10px] bg-white py-[6px] px-5 text-qora text-lg font-medium">
-                {adDetail.district.name_uz}
+                {adDetail.district?.name_uz}
               </p>
             </div>
             <p className="text-qora text-lg font-medium mt-[10px] mb-5">
