@@ -51,14 +51,13 @@ const MyElonItem = ({
           <div className="flex mt-2 mb-[10px]">
             <CiLocationOn className="text-lg" />
             <p className="text-sm text-kulrang ml-2 ">
-              {region?.name_uz}
-              {district?.name_uz}
+              {region?.name_uz} {district?.name_uz}
             </p>
           </div>
           <div className="flex justify-between mb-[10px] items-center">
             <p className="text-sm text-kulrang">{formatDate(created)}</p>
             <p className="text-xl text-qora font-semibold">
-              {price} {currency}
+              {Number(price).toLocaleString()} {currency}
             </p>
           </div>
         </div>

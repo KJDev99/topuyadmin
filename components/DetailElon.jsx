@@ -116,7 +116,7 @@ const DetailElon = () => {
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
               <h2 className="text-logoKok text-2xl font-normal mb-[10px]">
-                {adDetail.price} {adDetail.currency}
+                {Number(adDetail.price).toLocaleString()} {adDetail.currency}
               </h2>
               <div className="flex items-center">
                 <p className="text-sm font-medium mr-5 text-kulrang">
