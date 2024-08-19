@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import rasmYuklash from "@/assets/images/rasmyuklash.svg";
 import Image from "next/image";
 import { FaTimes } from "react-icons/fa";
-import axios from "axios";
 import Cookies from "js-cookie"; // Ensure you've installed js-cookie
 import api from "@/lib/api";
 
@@ -14,6 +13,28 @@ const Page = () => {
   const [image2ru, setImage2ru] = useState(null);
   const [link1, setLink1] = useState(""); // State for the first link input
   const [link2, setLink2] = useState(""); // State for the second link input
+
+  // Fetch data on component mount
+  useEffect(() => {
+    const fetchBannerData = async () => {
+      try {
+        const response = await api.get("/api/v1/banner");
+        const data = response.data;
+
+        // Set the state with the received data
+        setImage1(data.banner1_uz ? data.banner1_uz : null);
+        setImage1ru(data.banner1_ru ? data.banner1_ru : null);
+        setImage2(data.banner2_uz ? data.banner2_uz : null);
+        setImage2ru(data.banner2_ru ? data.banner2_ru : null);
+        setLink1(data.url1 || "");
+        setLink2(data.url2 || "");
+      } catch (error) {
+        console.error("Error while fetching banner data:", error);
+      }
+    };
+
+    fetchBannerData();
+  }, []);
 
   const handleImageChange = (event, setImage) => {
     const file = event.target.files[0];
@@ -34,10 +55,22 @@ const Page = () => {
     }
 
     const formData = new FormData();
-    if (image1) formData.append("banner1_uz", image1);
-    if (image1ru) formData.append("banner1_ru", image1ru);
-    if (image2) formData.append("banner2_uz", image2);
-    if (image2ru) formData.append("banner2_ru", image2ru);
+
+    const appendBinaryImage = async (key, image) => {
+      if (image && typeof image !== "string") {
+        const binary = await image.arrayBuffer();
+        const blob = new Blob([binary], { type: image.type });
+        formData.append(key, blob, image.name);
+      } else if (image === null) {
+        formData.append(key, "");
+      }
+    };
+
+    await appendBinaryImage("banner1_uz", image1);
+    await appendBinaryImage("banner1_ru", image1ru);
+    await appendBinaryImage("banner2_uz", image2);
+    await appendBinaryImage("banner2_ru", image2ru);
+
     formData.append("url1", link1);
     formData.append("url2", link2);
 
@@ -135,7 +168,9 @@ const ImageUploadSection = ({ image, onChange, onRemove, label }) => {
           <div className="relative w-[150px] h-[150px]">
             <img
               className="w-full h-full object-cover"
-              src={URL.createObjectURL(image)} // Display the image
+              src={
+                typeof image === "string" ? image : URL.createObjectURL(image)
+              } // Display the image or URL
               alt="user"
             />
             <button
