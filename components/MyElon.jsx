@@ -61,6 +61,7 @@ const MyElon = () => {
 
     if (searchQuery) {
       url += `&search=${encodeURIComponent(searchQuery)}`;
+      // console.log(url);
     }
 
     if (selectedDuration === "aktiv") {

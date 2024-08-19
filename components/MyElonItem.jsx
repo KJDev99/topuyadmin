@@ -22,7 +22,7 @@ const MyElonItem = ({
   status,
 }) => {
   return (
-    <Link href={`/${id}&${title}&${status}`}>
+    <Link href={`/${id}&${status}`}>
       <div className="flex bg-white rounded-[20px] overflow-hidden shadow-lg relative ">
         <div className="relative w-[268px] flex-shrink-0">
           {is_top && (
