@@ -166,7 +166,7 @@ const ProfilePage = () => {
             type="text"
             placeholder="Telefon raqam"
             value={userData.phone} // Displaying phone number, but it's not editable
-            disabled
+            // disabled
           />
           <h2 className="text-xl text-qora font-semibold mt-[30px]">
             Parolni yangilash

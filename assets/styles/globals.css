@@ -99,3 +99,14 @@ body {
 .mySwiper3 .swiper-button-next:after {
   font-size: 17px;
 }
+
+/* styles/globals.css */
+#nprogress .bar {
+  background: #29d;
+  height: 6px;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #29d;
+  border-left-color: #29d;
+}

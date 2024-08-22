@@ -20,6 +20,8 @@ const SarlavhaKiritishEdit = ({
           type={type || "text"}
           name={name}
           value={value}
+          disabled={onChange?false:true}
+          
           onChange={onChange}
           placeholder={placeholder}
           className="outline-none pr-4 overflow-hidden text-qora font-medium flex p-[10px] h-10 w-full rounded-[10px] justify-between items-center cursor-pointer border border-yozish"
