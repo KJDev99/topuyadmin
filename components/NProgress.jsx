@@ -10,12 +10,11 @@ NProgress.configure({ showSpinner: false });
 
 const NProgressComponent = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     NProgress.start();
     NProgress.done();
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 };
