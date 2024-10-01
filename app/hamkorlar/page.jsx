@@ -127,7 +127,7 @@ const HamkorPage = () => {
           users.map((user, id) => (
             <HamkorItems
               keyId={user.user.id}
-              num={id + 1}
+              num={(currentPage - 1) * 10 + id + 1}
               bg={id % 2 === 1}
               text1={user.user.full_name}
               text2={user.user.phone}

@@ -119,7 +119,7 @@ const UsersPage = () => {
           users.map((user, id) => (
             <UserItems
               key={user.id}
-              num={id + 1}
+              num={(currentPage - 1) * 10 + id + 1}
               bg={id % 2 === 1}
               image={user.photo || null}
               text1={user.full_name}
