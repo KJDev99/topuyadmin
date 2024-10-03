@@ -42,6 +42,7 @@ const Statistika = () => {
     rejected_ads: 0,
     line_chart: {},
   });
+  const [summ, setSumm] = useState();
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
@@ -60,6 +61,12 @@ const Statistika = () => {
         }
       );
       setData(response.data);
+      setSumm(
+        Object.values(response.data.line_chart).reduce(
+          (acc, value) => acc + value,
+          0
+        )
+      );
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -171,6 +178,9 @@ const Statistika = () => {
           </div>
         </div>
       </div>
+      <h2 className="text-xl text-qora mt-[30px] mb-[10px]">
+        Jami tushum: {summ}
+      </h2>
       <div className="relative mt-6">
         <Line data={lineChartData} options={options} />
       </div>
